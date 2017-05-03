@@ -4,6 +4,7 @@ project(balancebotblack)
  
 #Bring the headers into the project
 include_directories(include)
+link_directories(lib)
  
 #Can manually add the sources using the set command as follows:
 #set(SOURCES src/mainapp.cpp src/Student.cpp)
@@ -12,3 +13,5 @@ include_directories(include)
 file(GLOB SOURCES "src/*.cpp")
  
 add_executable(balancebotEXECUTE ${SOURCES})
+
+TARGET_LINK_LIBRARIES(balancebotEXECUTE Kalman)
