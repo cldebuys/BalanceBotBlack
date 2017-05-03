@@ -9,14 +9,15 @@
 #define MOTORCONTROLLER_H
 
 #include "VfsPWM.h"
+#include "GPIO.h"
 #include <cstdlib>
 
 #define MAX_VOLTAGE 12.0f
 
 enum PWMselect
 	{
-		FORWARD_PWM = 0,
-		BACKWARD_PWM = 1
+		A_PWM = 0,
+		B_PWM = 1
 	};
 
 class MotorController {
@@ -31,6 +32,9 @@ public:
 private:
 
 	VfsPWM* pwmControl;
+	ZJ::GPIO* motorAin;
+	ZJ::GPIO* motorBin;
+		
 	void setCW();
 	void setCCW();
 
