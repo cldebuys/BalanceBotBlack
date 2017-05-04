@@ -6,11 +6,11 @@
 #include <string>
 #include <iostream>
 
-MotorController::MotorController(int in1, int in2) {
+MotorController::MotorController(int in1, int in3) {
 
 	pwmControl = new VfsPWM();
 	motorAin = new GPIO(in1);
-	motorBin = new GPIO(in2);
+	motorBin = new GPIO(in3);
 	// std::cout << "Period of PWM: " << pwmControl->getPeriod()  << " ns" << std::endl;
 
 	motorAin->setDirection(GPIO::OUTPUT);
@@ -44,7 +44,7 @@ void MotorController::runByVoltage(float voltage) {
 	if (voltage >= 0.0f) //move forward
 	{
 		this->setForward();
-		pwmControl->set_duty_fraction(FORWARD_PWM, voltage/MAX_VOLTAGE);
+		pwmControl->set_duty_fraction(A_PWM, voltage/MAX_VOLTAGE);
 		pwmControl->toggle_pwms(A_PWM, TURN_ON);
 		pwmControl->toggle_pwms(B_PWM, TURN_ON);
 	} 
@@ -52,7 +52,7 @@ void MotorController::runByVoltage(float voltage) {
 	{
 		this->setBackward();
 		//invert duty cycle
-		pwmControl->set_duty_fraction(BACKWARD_PWM, 1.0f-(voltage/MAX_VOLTAGE));
+		pwmControl->set_duty_fraction(A_PWM, 1.0f-(voltage/MAX_VOLTAGE));
 		pwmControl->toggle_pwms(A_PWM, TURN_ON);
 		pwmControl->toggle_pwms(B_PWM, TURN_ON);
 	}

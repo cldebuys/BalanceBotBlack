@@ -24,7 +24,7 @@ class MotorController {
 
 public:
 
-    MotorController();
+    MotorController(int in1, int in3);
 	~MotorController();
 	void release();
 	void runByVoltage(float voltage);

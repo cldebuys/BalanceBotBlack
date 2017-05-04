@@ -82,14 +82,14 @@ int main(){
 	
 	/* Getting Motor Parameters */
 	ofstream out_data;
-	out_data.open("encoder_rate.dat")
+	out_data.open("encoder_rate.dat");
 	motor.runByVoltage(12.0);
 	int iter = 0;
 	auto t2 = Clock::now();
 	int pos_now = 0;
 	float encoder_rate = 0;
 	usleep(1000000);
-	motor.runByVoltage(0.0)
+	motor.runByVoltage(0.0);
 	int pos_prev = encoder2.getPosition();
 	auto t1 = Clock::now();
 	auto current_time = t1;
@@ -100,7 +100,7 @@ int main(){
 		t2 = Clock::now();
 		// cout << chrono::duration_cast<chrono::nanoseconds>(t2 - t1).count();
 		// cout << "\n";
-		encoder_rate = (float)(pos2_now - pos2_prev) / (float)(chrono::duration_cast<chrono::nanoseconds>(t2 - t1).count());
+		encoder_rate = (float)(pos_now - pos_prev) / (float)(chrono::duration_cast<chrono::nanoseconds>(t2 - t1).count());
 		current_time = t2 - start_time;
 		out_data << current_time <<"	" << encoder_rate << "\n";
 		t1 = t2;
