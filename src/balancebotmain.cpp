@@ -81,6 +81,12 @@ int main(){
 
 	// }
 	
+// auto t0 = Clock::now();
+// auto t1 = Clock::now();
+// fsec fs = t2 - t1;
+// ns d = std::chrono::duration_cast<ns>(fs);
+// std::cout << fs.count() << "s\n";
+// std::cout << d.count() << "ns\n";
 	
 	/* Getting Motor Parameters */
 	ofstream out_data;
