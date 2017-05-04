@@ -50,7 +50,7 @@ int main(){
 	int pos2 = 0;
 	
 	
-	MotorController motor(4,5); //P9_18, P9_17
+	//MotorController motor(4,5); //P9_18, P9_17
 	float volt1 = 0.0;
     // L298N motor2("pwm1",30,31); //P9_11, P9_13
 	float volt2 = 0.0;

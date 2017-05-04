@@ -5,6 +5,9 @@
 #include <cstdlib>
 #include <string>
 #include <iostream>
+#include "GPIO.h"
+
+using namespace ZJ;
 
 MotorController::MotorController(int in1, int in2) {
 
@@ -44,7 +47,7 @@ void MotorController::runByVoltage(float voltage) {
 	if (voltage >= 0.0f) //move forward
 	{
 		this->setForward();
-		pwmControl->set_duty_fraction(FORWARD_PWM, voltage/MAX_VOLTAGE);
+		pwmControl->set_duty_fraction(A_PWM, voltage/MAX_VOLTAGE);
 		pwmControl->toggle_pwms(A_PWM, TURN_ON);
 		pwmControl->toggle_pwms(B_PWM, TURN_ON);
 	} 
@@ -52,7 +55,7 @@ void MotorController::runByVoltage(float voltage) {
 	{
 		this->setBackward();
 		//invert duty cycle
-		pwmControl->set_duty_fraction(BACKWARD_PWM, 1.0f-(voltage/MAX_VOLTAGE));
+		pwmControl->set_duty_fraction(B_PWM, 1.0f-(voltage/MAX_VOLTAGE));
 		pwmControl->toggle_pwms(A_PWM, TURN_ON);
 		pwmControl->toggle_pwms(B_PWM, TURN_ON);
 	}

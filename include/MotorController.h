@@ -24,10 +24,12 @@ class MotorController {
 
 public:
 
-    MotorController();
+        MotorController(int in1, int in2);
 	~MotorController();
 	void release();
 	void runByVoltage(float voltage);
+	void setForward();
+	void setBackward();
 
 private:
 
