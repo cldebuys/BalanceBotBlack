@@ -24,11 +24,7 @@ class MotorController {
 
 public:
 
-<<<<<<< HEAD
     MotorController(int in1, int in3);
-=======
-        MotorController(int in1, int in2);
->>>>>>> origin/master
 	~MotorController();
 	void release();
 	void runByVoltage(float voltage);
