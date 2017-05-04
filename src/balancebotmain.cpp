@@ -30,7 +30,8 @@ using namespace ZJ;
 using namespace std;
 
 typedef std::chrono::high_resolution_clock Clock;
-	
+typedef std::chrono::nanoseconds ns;
+typedef std::chrono::duration<float> fsec;
 
 int main(){
 	cout << "Start\n";
@@ -80,6 +81,7 @@ int main(){
 
 	// }
 	
+	
 	/* Getting Motor Parameters */
 	ofstream out_data;
 	out_data.open("encoder_rate.dat");
@@ -100,12 +102,15 @@ int main(){
 		t2 = Clock::now();
 		// cout << chrono::duration_cast<chrono::nanoseconds>(t2 - t1).count();
 		// cout << "\n";
-		encoder_rate = (float)(pos_now - pos_prev) / (float)(chrono::duration_cast<chrono::nanoseconds>(t2 - t1).count());
+		fsec time_seconds = t2 - t1;
+
+		// encoder_rate = (float)(pos_now - pos_prev) / (float)(chrono::duration_cast<chrono::nanoseconds>(t2 - t1).count());
+		encoder_rate = (float)(pos_now - pos_prev)/time_seconds;
 		current_time = t2 - start_time;
 		out_data << current_time <<"	" << encoder_rate << "\n";
 		t1 = t2;
 		if (pos_prev == pos_now){
-			++iter
+			++iter;
 		}
 		else{
 			iter = 0;
