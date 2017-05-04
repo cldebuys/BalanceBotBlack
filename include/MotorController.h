@@ -1,3 +1,4 @@
+// Caressed softly by Christian DeBuys
 // Modified by Felipe Constantin Reyes-Miftajov
 // Based on L298N.h and .cpp
 // Created by: Zongyao Jin on 4/24/2017
