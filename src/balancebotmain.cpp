@@ -25,14 +25,18 @@
 /* Timing */
 	#include <chrono>
 	#include <fstream>
+	#include <sys/time.h>
 
 using namespace ZJ;
 using namespace std;
 
-typedef std::chrono::high_resolution_clock Clock;
-typedef std::chrono::nanoseconds ns;
-typedef std::chrono::duration<float> fsec;
-
+// typedef std::chrono::high_resolution_clock Clock;
+// typedef std::chrono::nanoseconds ns;
+// typedef std::chrono::duration<float> fsec;
+    typedef std::chrono::high_resolution_clock Time;
+    typedef std::chrono::nanoseconds ns;
+    typedef std::chrono::duration<float> fsec;
+	
 int main(){
 	cout << "Start\n";
 	/* Initialize the IMU */
@@ -44,7 +48,7 @@ int main(){
 	/* Initialize variables outside the loop */
 	int killSwitch = 1;
 	
-	EQEP encoder1(0);	//P8_34, P8_33
+	EQEP encoder1(0);	//P8_35, P8_33
 	int pos1 = 0;
 	EQEP encoder2(1);	//P8_12, P8_11
 		// GPIO: write failed to open file : Permission denied
@@ -80,41 +84,51 @@ int main(){
 	
 
 	// }
-	
-// auto t0 = Clock::now();
-// auto t1 = Clock::now();
-// fsec fs = t2 - t1;
-// ns d = std::chrono::duration_cast<ns>(fs);
-// std::cout << fs.count() << "s\n";
-// std::cout << d.count() << "ns\n";
-	
+
+    	
+    // auto t0 = Time::now();
+    // auto t1 = Time::now();
+    // fsec fs = t1 - t0;
+    // ns d = std::chrono::duration_cast<ns>(fs);
+    // std::cout << fs.count() << " s\n";
+    // std::cout << d.count() << " ms\n";
+    // std::cout << MotorEnCnt/d.count() << " ms\n";
+///////////////////////////////////////////////////////////////
+
 	/* Getting Motor Parameters */
 	ofstream out_data;
 	out_data.open("encoder_rate.dat");
 	motor.runByVoltage(12.0);
 	int iter = 0;
-	auto t2 = Clock::now();
+    auto t1 = Time::now();
 	int pos_now = 0;
-	float encoder_rate = 0;
-	usleep(1000000);
+	double encoder_rate = 0;
+	usleep(10000000);
 	motor.runByVoltage(0.0);
 	int pos_prev = encoder2.getPosition();
-	auto t1 = Clock::now();
-	auto current_time = t1;
-	auto start_time = Clock::now();
-	while (iter < 10){
+    auto t0 = Time::now();
+	auto current_time = Time::now();
+	auto start_time = Time::now();
+	
+	while (iter < 1000){
 		
 		pos_now = encoder2.getPosition();
-		t2 = Clock::now();
-		// cout << chrono::duration_cast<chrono::nanoseconds>(t2 - t1).count();
-		// cout << "\n";
-		fsec time_seconds = t2 - t1;
+		
+		t1 = Time::now();
+		fsec fs = t1 - t0;
+		ns d = std::chrono::duration_cast<ns>(fs);
+		
+	// std::cout << fs.count() << " s\n";
+    // std::cout << d.count() << " ms\n";
+    // std::cout << MotorEnCnt/d.count() << " ms\n";
+	
+	// /*	encoder_rate = (float)(pos_now - pos_prev) / (float)(chrono::duration_cast<chrono::nanoseconds>(t2 - t1).count());*/
 
-		// encoder_rate = (float)(pos_now - pos_prev) / (float)(chrono::duration_cast<chrono::nanoseconds>(t2 - t1).count());
-		encoder_rate = (float)(pos_now - pos_prev)/time_seconds;
-		current_time = t2 - start_time;
-		out_data << current_time <<"	" << encoder_rate << "\n";
-		t1 = t2;
+		encoder_rate = (double)1000*(pos_now - pos_prev)/d.count(); // counts per second
+		
+		out_data << fs.count() <<"	" << encoder_rate << "\n";
+		cout << encoder_rate << "	" << pos_now << "	" << pos_prev <<"\n";
+		t0 = t1;
 		if (pos_prev == pos_now){
 			++iter;
 		}
