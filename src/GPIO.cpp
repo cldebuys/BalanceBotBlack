@@ -40,9 +40,9 @@ int GPIO::exportGPIO(){
    return write(GPIO_PATH, "export", this->number);
 }
 
-int GPIO::unexportGPIO(){
-   return write(GPIO_PATH, "unexport", this->number);
-}
+// int GPIO::unexportGPIO(){
+   // return write(GPIO_PATH, "unexport", this->number);
+// }
 
 int GPIO::setDirection(GPIO::DIRECTION dir){
    switch(dir){
@@ -102,7 +102,7 @@ int GPIO::streamClose(){
 }
 
 GPIO::~GPIO() {
-	this->unexportGPIO();
+	// this->unexportGPIO();
 }
 
 } /* namespace ZJ */

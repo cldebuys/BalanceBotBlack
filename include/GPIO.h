@@ -54,7 +54,7 @@ public:
 private:
 
 	int exportGPIO();
-	int unexportGPIO();
+	// int unexportGPIO();
 	ofstream stream;
 
 };

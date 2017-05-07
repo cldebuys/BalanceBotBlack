@@ -31,7 +31,7 @@ public:
 	void runByVoltage(float voltage);
 	void setForward();
 	void setBackward();
-
+	
 private:
 
 	VfsPWM* pwmControl;

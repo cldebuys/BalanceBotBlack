@@ -59,7 +59,7 @@
 		{
 			pinList[i].number = i;
 			pinList[i].dutyCycle = 0;
-			pinList[i].period = 2000000;
+			pinList[i].period = 100000;
 			pinList[i].isRunning = false;
 			
 			export_pwm(i);
@@ -174,6 +174,7 @@
             if (fileID < 0)
             {
                 perror("pwm/duty");
+				std::cout << "WTF IS GOING ONNNNNNNNNNNNNNNN duty" << pwm_select;
                 return;
             }
 

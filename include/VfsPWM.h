@@ -40,7 +40,8 @@
 #define VFSPWM_H
 
 #define MAX_BUF 64
-#define VFS_PWM_DIR "/sys/class/pwm/pwmchip0"
+#define VFS_PWM_DIR "/sys/devices/platform/ocp/48302000.epwmss/48302200.ehrpwm/pwm/pwmchip2"
+
 #define NUM_PWMS 2
 
 struct pwm_pin

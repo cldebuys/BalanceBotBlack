@@ -25,7 +25,7 @@ PWM::PWM(string pinName) {
 	else perror("Wrong PWM channel input. Error!");
 
 	// this->path = PWM_PATH + this->name + "/";
-	this->setFrequency(20000);
+	this->setFrequency(100000);
 	// std::cout << this->getPeriod() << std::endl;
 	this->analogFrequency = this->getFrequency();
 	this->analogMax = 12;
