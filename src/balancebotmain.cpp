@@ -64,6 +64,8 @@ int main(){
 	float pos_d = 0.0;
 	float e_pos = 0.0;
 	float torque_to_percent = 0.0;
+	float count_to_radians = 2*PI/1632;
+	float R = 0.02; // meters
 	float control1 = 0.0;
 	float control2 = 0.0;
 	
@@ -108,8 +110,8 @@ int main(){
 	
 	
 	/* Calculate H-Control Effort */
-		e1 = imu.getAccPitch();
-		e_pos = pos1 - pos_d;
+		e1 = imu.getAccPitch()*PI/180;
+		e_pos = (pos1 - pos_d)*count_to_radians*R;
 		u(0) = e1;
 		u(1) = e_pos;
 		
